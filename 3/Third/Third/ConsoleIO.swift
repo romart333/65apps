@@ -24,10 +24,7 @@ class ConsoleIO {
     }
     
     func printUsage() {
-        writeMessage("\nChoose action:")
-        writeMessage("s: Show user repositories")
-        writeMessage("q: Quit")
-        
+        writeMessage("Enter user name (or 'quit' to exit): ")        
     }
     
     func getInput() -> String {
