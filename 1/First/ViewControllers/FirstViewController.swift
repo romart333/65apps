@@ -12,13 +12,6 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var imageUrl = "https://placehold.it/375x150?text=%d"
     @IBOutlet weak var tableView: UITableView!
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tableView.reloadData()
-       // print("table reloaded")
-        
-    }
-    
     // MARK: - Table view data source
     
     private let numberOfRows = 100
@@ -27,41 +20,33 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return numberOfRows
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell",for: indexPath) as! CustomTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
         let stringUrl = String(format: imageUrl, indexPath.row + 1)
-        if let url = URL(string: stringUrl) {
-            if (indexPath.row < numberOfRows) {
-                downloadImage(withUrl: url, forCell: cell)
-            }
-        } else {
-        print("Incorrect url \(stringUrl)")
+        guard let url = URL(string: stringUrl)  else {
+            print("Incorrect url \(stringUrl)")
+            return cell
         }
+        downloadImage(withUrl: url, forCell: cell)
         
-        // Временное решение,т.к. пока не знаю, как в downloadImage присвоить картинку в кастомуню imageView
-        if let imageView = cell.imageView {
-            cell.customImageView = imageView
-        }
         
         return cell
     }
     
     func downloadImage(withUrl url: URL, forCell cell: UITableViewCell) {
+        guard let cell = cell as? CustomTableViewCell else { return }
         
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-                   guard let dataResponse = data, error == nil else {
-                       print(error?.localizedDescription ?? "Response Error")
-                       return
-                   }
+            guard let dataResponse = data, error == nil else {
+                print(error?.localizedDescription ?? "Response Error")
+                return
+            }
             
+            guard let image = UIImage(data: dataResponse) else { return }
             DispatchQueue.main.async {
-                cell.imageView?.image = UIImage(data: dataResponse)
+                cell.setImage(image)
             }
         }
         task.resume()
