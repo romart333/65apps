@@ -22,7 +22,8 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let customCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? CustomTableViewCell
+        let cell = customCell ?? CustomTableViewCell()
         
         let stringUrl = String(format: imageUrl, indexPath.row + 1)
         guard let url = URL(string: stringUrl)  else {
@@ -30,23 +31,29 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
             return cell
         }
         downloadImage(withUrl: url, forCell: cell)
-        
-        
         return cell
     }
     
     func downloadImage(withUrl url: URL, forCell cell: UITableViewCell) {
         guard let cell = cell as? CustomTableViewCell else { return }
+        let absoluteUrl = url.absoluteString as NSString
         
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+        if let image = ImageCacheService.shared.getImage(url: absoluteUrl as NSString) {
+            cell.setImage(image)
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { [unowned absoluteUrl] (data, response, error) in
             guard let dataResponse = data, error == nil else {
                 print(error?.localizedDescription ?? "Response Error")
                 return
             }
             
             guard let image = UIImage(data: dataResponse) else { return }
+            
             DispatchQueue.main.async {
                 cell.setImage(image)
+                ImageCacheService.shared.addImage(url: absoluteUrl, image: image)
             }
         }
         task.resume()

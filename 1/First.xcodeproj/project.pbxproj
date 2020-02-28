@@ -13,6 +13,7 @@
 		D7651653239D3617000874FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7651652239D3617000874FD /* Assets.xcassets */; };
 		D7651656239D3617000874FD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7651654239D3617000874FD /* LaunchScreen.storyboard */; };
 		EF233FA524051D680001BB31 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF233FA424051D680001BB31 /* CustomTableViewCell.swift */; };
+		EFCBC274240905000065BBFE /* ImageCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCBC273240905000065BBFE /* ImageCacheService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		D7651655239D3617000874FD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D7651657239D3617000874FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EF233FA424051D680001BB31 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		EFCBC273240905000065BBFE /* ImageCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 		D7651647239D3600000874FD /* First */ = {
 			isa = PBXGroup;
 			children = (
+				EFCBC272240901D60065BBFE /* Services */,
 				EF233FA1240518530001BB31 /* View */,
 				D7651662239D5FBB000874FD /* ViewControllers */,
 				D7651648239D3601000874FD /* AppDelegate.swift */,
@@ -81,6 +84,14 @@
 				EF233FA424051D680001BB31 /* CustomTableViewCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		EFCBC272240901D60065BBFE /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				EFCBC273240905000065BBFE /* ImageCacheService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -156,6 +167,7 @@
 			files = (
 				EF233FA524051D680001BB31 /* CustomTableViewCell.swift in Sources */,
 				D765164B239D3601000874FD /* FirstViewController.swift in Sources */,
+				EFCBC274240905000065BBFE /* ImageCacheService.swift in Sources */,
 				D7651649239D3601000874FD /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

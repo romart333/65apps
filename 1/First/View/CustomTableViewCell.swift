@@ -10,12 +10,7 @@ import UIKit
 
 class CustomTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var customImageView: UIImageView!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
+    @IBOutlet private weak var customImageView: UIImageView!
     
     func setImage(_ image: UIImage) {
         customImageView.image = image
